@@ -1,0 +1,40 @@
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   DATA SOURCES  │    │  PROCESSING      │    │   ANALYTICS     │
+│                 │    │  PIPELINE        │    │   & REPORTING   │
+├─────────────────┤    ├──────────────────┤    ├─────────────────┤
+│ • COVID         │    │                  │    │ • Business      │
+│ • TIP           │────▶│   STAGE Layer    │────▶│   Performance  │
+│ • CHECKIN       │    │                  │    │   Dashboards    │
+│ • REVIEW        │    ├──────────────────┤    │                 │
+│                 │    │                  │    │ • Weather       │
+│ • Temperature   │────▶│   ODS Layer     │────▶│   Impact       │
+│ • Precipitation │    │   (Cleaning)     │    │   Analysis      │
+└─────────────────┘    ├──────────────────┤    │                 │
+                       │                  │    │ • Customer      │
+                       │   DWH Layer      │────▶│   Behavior     │
+                       │   (Modeling)     │    │   Insights      │
+                       ├──────────────────┤    └─────────────────┘
+                       │                  │
+                       │   STAR SCHEMA    │
+                       │   Implementation │
+                       └──────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    SNOWFLAKE DATA WAREHOUSE                 │
+│                                                             │
+│  FACT Table              DIM_BUSINESS        DIM_CUSTOMER   │
+│  ┌─────────────┐        ┌─────────────┐     ┌─────────────┐ │
+│  │ • business_id├───────┤• business_id│     │• customer_id│ │
+│  │ • customer_id├───┐   │• name       │     │• name       │ │
+│  │ • date       │   │   │• city/state │     │• avg_stars  │ │
+│  │ • stars      │   │   │• is_open    │     │• fans       │ │
+│  └─────────────┘   │   └─────────────┘     └─────────────┘ │
+│                    │                                       │
+│  DIM_TEMPERATURE   │    DIM_PRECIPITATION                  │
+│  ┌─────────────┐   │    ┌─────────────┐                    │
+│  │ • date      │◄──┘    │ • date      │                    │
+│  │ • min_temp  │        │ • precip    │                    │
+│  │ • max_temp  │        │ • precip_nrm│                    │
+│  └─────────────┘        └─────────────┘                    │
+└─────────────────────────────────────────────────────────────┘
